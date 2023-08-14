@@ -1,5 +1,11 @@
-/* Database schema to keep the structure of entire database. */
+postgres=# CREATE DATABASE vet_clinic;
+postgres=# \c vet_clinic
 
-CREATE TABLE animals (
-    name varchar(100)
+vet_clinic=# CREATE TABLE animals (
+    id serial PRIMARY KEY,
+    name VARCHAR(255),
+    date_of_birth DATE,
+    escape_attempts INTEGER,
+    neutered BOOLEAN,
+    weight_kg DECIMAL(10, 2)
 );
