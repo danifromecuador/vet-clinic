@@ -135,3 +135,91 @@ ON owners.id = animals.owner_id
 GROUP BY full_name
 ORDER BY count DESC
 LIMIT 1;
+
+/*
+- Write queries to answer the following:
+  - Who was the last animal seen by William Tatcher?
+  - How many different animals did Stephanie Mendez see?
+  - List all vets and their specialties, including vets with no specialties.
+  - List all animals that visited Stephanie Mendez between April 1st and August 30th, 2020.
+  - What animal has the most visits to vets?
+  - Who was Maisy Smith's first visit?
+  - Details for most recent visit: animal information, vet information, and date of visit.
+  - How many visits were with a vet that did not specialize in that animal's species?
+  - What specialty should Maisy Smith consider getting? Look for the species she gets the most.
+*/
+
+SELECT animals.name AS animal_name, visits.visit_date, vets.name AS vet_name
+FROM animals
+JOIN visits
+ON animals.id = visits.animal_id
+JOIN vets
+ON visits.vet_id = vets.id
+WHERE vets.name ILIKE 'william tatcher'
+ORDER BY visit_date DESC
+LIMIT 1
+
+SELECT COUNT(DISTINCT animals.name) AS result
+FROM animals
+JOIN visits
+ON animals.id = visits.animal_id
+JOIN vets
+ON visits.vet_id = vets.id
+WHERE vets.name ILIKE 'stephanie mendez';
+
+SELECT vets.name AS vet_name, species.name AS specialized_in
+FROM vets
+LEFT JOIN specializations
+ON vets.id = specializations.vet_id
+LEFT JOIN species
+ON specializations.species_id = species.id;
+
+SELECT animals.name AS animal_name, vets.name AS vet_name, visits.visit_date
+FROM animals
+JOIN visits
+ON animals.id = visits.animal_id
+JOIN vets
+ON visits.vet_id = vets.id
+WHERE vets.name ILIKE 'stephanie mendez'
+AND visits.visit_date >= '2020-04-01'
+AND visits.visit_date <= '2020-08-30';
+
+SELECT animals.name, COUNT(animals.name)
+FROM animals
+JOIN visits
+ON animals.id = visits.animal_id
+GROUP BY animals.name
+ORDER BY COUNT(animals.name) DESC LIMIT 1;
+
+SELECT animals.name AS animal_name, vets.name AS vet_name, visits.visit_date
+FROM animals
+JOIN visits
+ON animals.id = visits.animal_id
+JOIN vets
+ON visits.vet_id = vets.id
+WHERE vets.name ILIKE 'Maisy Smith'
+ORDER BY visits.visit_date LIMIT 1;
+
+SELECT a.name, a.date_of_birth, a.escape_attempts, a.neutered, a.weight_kg, v.name, v.age, v.date_of_graduation, visits.visit_date
+FROM animals AS a
+JOIN visits ON a.id = visits.animal_id 
+JOIN vets AS v ON visits.vet_id = v.id
+ORDER BY visits.visit_date DESC LIMIT 1;
+
+SELECT vets.name AS vet_name, species.name AS specialized_in,
+       CASE WHEN animals.name ILIKE '%mon' THEN 'Digimon' ELSE 'Pokemon' END AS specie_attended
+FROM vets
+JOIN specializations AS sp ON vets.id = sp.vet_id
+JOIN species ON sp.species_id = species.id
+JOIN visits ON vets.id = visits.vet_id
+JOIN animals ON visits.animal_id = animals.id
+WHERE species.id != animals.species_id;
+
+SELECT vets.name AS vet_name, species.name AS attended_species, COUNT(*) AS total_attended
+FROM vets
+JOIN visits ON vets.id = visits.vet_id
+JOIN animals ON visits.animal_id = animals.id
+JOIN species ON animals.species_id = species.id
+WHERE vets.name ILIKE 'Maisy Smith'
+GROUP BY vets.name, species.name
+ORDER BY total_attended DESC LIMIT 1;
