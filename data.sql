@@ -97,3 +97,12 @@ INSERT INTO visits (animal_id, vet_id, visit_date) VALUES
     ((SELECT id FROM animals WHERE name = 'Boarmon'), (SELECT id FROM vets WHERE name = 'Maisy Smith'), '2020-08-03'),
     ((SELECT id FROM animals WHERE name = 'Blossom'), (SELECT id FROM vets WHERE name = 'Stephanie Mendez'), '2020-05-24'),
     ((SELECT id FROM animals WHERE name = 'Blossom'), (SELECT id FROM vets WHERE name = 'William Tatcher'), '2021-01-11');
+
+-- Add indexes to your visits table animal_id
+CREATE INDEX idx_animal_id ON visits (animal_id);
+
+-- Add indexes to your visits table vet_id
+CREATE INDEX vet_id_asc ON visits(vet_id ASC);
+
+-- Add indexes to your owners table
+CREATE INDEX idx_email ON owners (email);
