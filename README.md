@@ -128,9 +128,9 @@ vet_clinic=# CREATE TABLE animals (
 
 👤 **Dani Morillo**
 
-- GitHub: [danifromecuador](https://github.com/francksefu)
-- Twitter: [@danifromecuador](https://twitter.com/franck_sefu)
-- LinkedIn: [danifromecuador](https://www.linkedin.com/in/franck-sefu-884705254/)
+- GitHub: [danifromecuador](https://github.com/danifromecuador)
+- Twitter: [@danifromecuador](https://twitter.com/danifromecuador)
+- LinkedIn: [danifromecuador](https://www.linkedin.com/in/danifromecuador)
 
 👤 **Franck Sefu**
 - GitHub: [franksefu1998](https://github.com/francksefu)
