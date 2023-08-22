@@ -61,4 +61,4 @@ CREATE INDEX idx_animal_id ON visits (animal_id);
 CREATE INDEX vet_id_asc ON visits(vet_id ASC);
 
 -- Add indexes to your owners table
-CREATE INDEX idx_email ON owners (email);
+CREATE INDEX idx_email ON owners (lower(email));
